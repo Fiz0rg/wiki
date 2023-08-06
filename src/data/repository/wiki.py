@@ -15,6 +15,8 @@ class WikiRepository(IWikiRepository):
 
         if articles:
             if request.title() in articles:
+                """ If the user request in the articles list, we get that article as well. """
+
                 result = summary(request).split("\n")[0]
                 return JSONResponse(content={"result": result, "articles": articles}, status_code=200)
             else:
