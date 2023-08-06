@@ -14,15 +14,13 @@ router = APIRouter(tags=["WIKI"])
                 200: {'model': dict, 'description': 'Ok'},
                 303: {'model': dict, 'description': 'See Other'},
                 404: {'model': dict, 'description': 'Not found any articles'},
-            })
-async def run(
+            },
+            summary="Get articles",
+)
+async def articles(
     request: str,
     language: Annotated[str| None, Header()] = None
 ) -> JSONResponse:
     
-    result = WikiRepository.get_article(
-        request=request,
-        language=language,
-    )
-
+    result = WikiRepository.get_article(request=request, language=language)
     return await result
