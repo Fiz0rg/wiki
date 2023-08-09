@@ -6,18 +6,16 @@ from src.core.repository.wiki import IWikiRepository
 
 
 class WikiRepository(IWikiRepository):
-    async def get_article(*, request: str, language: str | None = None) -> JSONResponse:
+    async def get_article(*, request: str, language: str) -> JSONResponse:
 
-        if not language:
-            set_lang("cs")
+        set_lang(language)
 
         articles = search(request)
 
         if articles:
             if request.title() in articles:
                 """ If the user request in the articles list, we get that article as well. """
-
-                result = summary(request).split("\n")[0]
+                result = summary(request.title(), auto_suggest=False).split("\n")[0]
                 return JSONResponse(content={"result": result, "articles": articles}, status_code=200)
             else:
                 return JSONResponse(content={"result": None, "articles": articles}, status_code=303)

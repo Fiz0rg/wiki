@@ -19,8 +19,8 @@ router = APIRouter(tags=["WIKI"])
 )
 async def articles(
     request: str,
-    language: Annotated[str| None, Header()] = None
+    Accept_Language: Annotated[str, Header()],
 ) -> JSONResponse:
-    
-    result = WikiRepository.get_article(request=request, language=language)
+
+    result = WikiRepository.get_article(request=request, language=Accept_Language)
     return await result
