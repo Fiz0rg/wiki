@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from src.http.wiki_api import router as wiki_router
+from wiki_api import router as wiki_router
 
 
 app = FastAPI()

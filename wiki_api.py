@@ -1,9 +1,8 @@
 from typing import Annotated
-
-from src.data.repository.wiki import WikiRepository
-
+from aiohttp import ClientSession
 from fastapi import Header, APIRouter
-from fastapi.responses import JSONResponse
+
+from wiki_repository import WikiRepository
 
 
 router = APIRouter(tags=["WIKI"])
@@ -17,10 +16,12 @@ router = APIRouter(tags=["WIKI"])
             },
             summary="Get articles",
 )
-async def articles(
+async def wiki_info(
     request: str,
     Accept_Language: Annotated[str, Header()],
-) -> JSONResponse:
+):
+    async with ClientSession() as sess:
 
-    result = WikiRepository.get_article(request=request, language=Accept_Language)
-    return await result
+        repo = WikiRepository(session=sess)
+        result = repo.get_wiki_info(request=request, language=Accept_Language)
+        return await result
