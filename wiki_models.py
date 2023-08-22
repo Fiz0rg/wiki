@@ -1,6 +1,13 @@
 from pydantic import BaseModel
 
 
-class Article(BaseModel):
-    result: str | None = None
-    articles: list[str] | None = None
+class ArticleTitles(BaseModel):
+    article_titles: list[str] | None = None
+
+
+class FirstArticleParagraph(BaseModel):
+    first_article_paragraph: str | None = None
+
+
+class WikiInfo(ArticleTitles, FirstArticleParagraph):
+    """ """
