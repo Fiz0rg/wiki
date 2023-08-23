@@ -24,6 +24,7 @@ async def wiki_info(
     request: str,
     Accept_Language: Annotated[str, Header()],
 ) -> JSONResponse:
+    
     async with ClientSession() as sess:
         wr = WikiRequest(session=sess)
         repo = Repository(wiki_request=wr)

@@ -18,6 +18,8 @@ async def get_the_first_paragraph_of_the_article(row_sting: str) -> str | None:
 async def list_of_similar_article_titles(row_sting: str) -> list[str] | None:
     to_json: dict = loads(row_sting)
     search_results = list(d["title"] for d in to_json["query"]["search"])
+
     if not search_results:
         return None
+    
     return list(search_results)
